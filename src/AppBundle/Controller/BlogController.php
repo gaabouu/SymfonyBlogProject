@@ -36,5 +36,13 @@ class BlogController extends Controller
     {
         return new Response('<h1>L\'identifiant ' . $idPost . ' ne correspond à aucun post</h1>');
     }
+
+    /**
+     * @Route("/create", name="create")
+     */
+    public function createAction()
+    {
+        return $this->render('default/posting.html.twig');
+    }
 }
 
