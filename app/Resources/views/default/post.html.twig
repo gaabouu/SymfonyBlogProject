@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}zeMudaFukinPost{% endblock %}
+
 {% block body %}
 
     {% block header %}
@@ -17,7 +19,7 @@
                     <!-- Logo Area Start -->
                     <div class="col-12">
                         <div class="logo_area text-center">
-                            <a href="{{ path('homepage') }}" class="yummy-logo">Yummy Blog</a>
+                            <a href="{{ path('homepage') }}" class="yummy-logo">zeMudaFukinBlog</a>
                         </div>
                     </div>
                 </div>
@@ -46,11 +48,15 @@
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Popular posts</a>
                                         <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                            <a class="dropdown-item" href="{{ path('Post', {'idPost': 150}) }}">Post 150</a>
+                                            <a class="dropdown-item" href="{{ path('Post', {'idPost': $idPost,
+                                                                                        'title'=>$title,
+                                                                                        'content'=>$content,
+                                                                                        'published'=>$published                                    
+                                            }) }}">Post {{ idPost }}</a>
                                         </div>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ path('create') }}">Create a post</a>
+                                        <a class="nav-link" href="{{ path('createPage') }}">Create a post</a>
                                     </li>
                                 </ul>
                             </div>

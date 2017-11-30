@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}zeMudaFukinCreation{% endblock %}
+
 {% block body %}
 
     {% block header %}
@@ -17,7 +19,7 @@
                     <!-- Logo Area Start -->
                     <div class="col-12">
                         <div class="logo_area text-center">
-                            <a href="{{path('homepage') }}" class="yummy-logo">Yummy Blog</a>
+                            <a href="{{path('homepage') }}" class="yummy-logo">zeMudaFukinBlog</a>
                         </div>
                     </div>
                 </div>
@@ -49,7 +51,7 @@
                                         </div>
                                     </li>
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="{{ path('create') }}">Create a post</a>
+                                        <a class="nav-link" href="{{ path('createPage') }}">Create a post</a>
                                     </li>
                                 </ul>
                             </div>
@@ -86,6 +88,36 @@
         <!-- ****** Breadcumb Area End ****** -->
 
     {% endblock %}
+
+
+        <!-- ****** POST CREATION FORM STARTS ***** -->
+       
+        <section class="create-form">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-8">
+                        <div class="row no-gutters">
+
+
+                            <h2 class="post-headline">Here you can create you own post on this Blog. Fantastic isn't it?</h2>
+
+                            <form>
+                                Name: <br>
+                                <input type="text" placeholder="Anonymous"><br>
+                                Title:<br>
+                                <input type="text" placeholder="A Fairly Okayish Post I guess" size="50"><br>
+                                <input type="text"><br>
+                                <input type="submit" value="Post it!">
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ****** POST CREATION FORM ENDS ***** -->
+
 
  
         <!-- ****** Single Blog Area Start ****** -->

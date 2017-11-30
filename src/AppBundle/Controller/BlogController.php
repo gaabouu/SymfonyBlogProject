@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use AppBundle\Entity\Post;
+
 
 class BlogController extends Controller
 {
@@ -26,23 +28,58 @@ class BlogController extends Controller
      */
     public function postAction($idPost)
     {
-        return $this->render('default/post.html.twig', ['idPost'=>$idPost]);
+        $post = $this->getDoctrine()
+            ->getRepository('AppBundle:Post')
+            ->find($idPost);
+
+        if(!$post)
+        {
+            throw $this->createNotFoundException(
+                'No post found with that idea :/ ' . $idPost
+            );
+        }
+
+        $author = $post->getAuthor(); 
+        $title = $post->getTitle();
+        $content = $post->getContent();
+        $published = $post->getPublished();
+
+
+        return $this->render('default/post.html.twig', ['idPost'=>$idPost,
+                                                'author'=>$author,
+                                                'title'=>$title,
+                                                'content'=>$content,
+                                                'published'=>$published                                                    
+        ]);
     }
 
-    /**
-     * @Route("/post/{idPost}", name="wrong_post")
-     */
-    public function wrongPostAction($idPost)
-    {
-        return new Response('<h1>L\'identifiant ' . $idPost . ' ne correspond à aucun post</h1>');
-    }
 
     /**
-     * @Route("/create", name="create")
+     * @Route("/createPage", name="createPage")
      */
-    public function createAction()
+    public function createPageAction()
     {
         return $this->render('default/posting.html.twig');
     }
+
+    public function createAction()
+    {
+        $post = new Post();
+        $post->setId(150);
+        $post->setAuthor('gab');
+        $post->setTitle('Post');
+        $post->setUrlAlias('test');
+        $post->setContent('Hello World!');
+        $pub = "11-11-12";
+        $post->setPublished(new \DateTime($pub));
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($post);
+        $em->flush();
+
+        return new Response('New Post created! : '.$post->getTitle());
+
+    }
+
 }
 

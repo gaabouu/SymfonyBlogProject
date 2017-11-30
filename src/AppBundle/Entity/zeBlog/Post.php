@@ -15,11 +15,19 @@ class Post
     /**
      * @var int
      *
+     * @ORM\id
      * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * 
      */
     private $id;
+
+    /**
+     * @var string
+     * 
+     * @ORM\Column(name="author", type="string", length=36, options={"default" : "Anonymous"})
+     */
+    private $author;
 
     /**
      * @var string
@@ -58,6 +66,30 @@ class Post
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set author
+     *
+     * @param string $author
+     *
+     * @return Post
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return string
+     */
+    public function getAuthor()
+    {
+        return $this->author;
     }
 
     /**
