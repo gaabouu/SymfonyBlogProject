@@ -21,6 +21,15 @@ class Post
      */
     private $id;
 
+
+    /**
+     * @var string
+     * 
+     * @ORM\Column(name="author", type="string", length=36, options={"default" : "Anonymous"})
+     */
+    private $author;
+    
+
     /**
      * @var string
      *
@@ -59,6 +68,32 @@ class Post
     {
         return $this->id;
     }
+
+
+    /**
+     * Set author
+     *
+     * @param string $author
+     *
+     * @return Post
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return string
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
 
     /**
      * Set title
@@ -154,6 +189,12 @@ class Post
     public function getPublished()
     {
         return $this->published;
+    }
+
+    
+    public function findPosts($nb)
+    {
+      
     }
 }
 

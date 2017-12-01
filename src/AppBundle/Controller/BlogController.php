@@ -17,11 +17,26 @@ class BlogController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
+
+
+        $repository = $this->getDoctrine()
+            ->getRepository('AppBundle:Post');
+
+        $posts = $repository->findAll();
+
+        
+        if(!$posts){
+            throw $this->createNotFoundException(
+                'No post At all'
+            );
+        }
+
+
         return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR
         ]);
     }
+    
 
     /**
      * @Route("/post/{idPost}", name="Post", requirements={"idPost" : "\d+" })
@@ -65,7 +80,6 @@ class BlogController extends Controller
     public function createAction()
     {
         $post = new Post();
-        $post->setId(150);
         $post->setAuthor('gab');
         $post->setTitle('Post');
         $post->setUrlAlias('test');
