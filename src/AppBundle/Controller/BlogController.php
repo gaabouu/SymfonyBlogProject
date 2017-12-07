@@ -6,6 +6,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\ParameterBag;
+
+
 
 use AppBundle\Entity\Post;
 
@@ -43,6 +48,9 @@ class BlogController extends Controller
      */
     public function postAction($idPost)
     {
+
+        
+
         $post = $this->getDoctrine()
             ->getRepository('AppBundle:Post')
             ->find($idPost);
@@ -50,7 +58,7 @@ class BlogController extends Controller
         if(!$post)
         {
             throw $this->createNotFoundException(
-                'No post found with that idea :/ ' . $idPost
+                $r
             );
         }
 
@@ -77,13 +85,32 @@ class BlogController extends Controller
         return $this->render('default/posting.html.twig');
     }
 
-    public function createAction()
+    /**
+     * @Route("/create", name="create")
+     */
+    public function createAction(Request $request)
     {
+
+        $form = $this->createFormBuilder()
+          ->add('name', TextType::class)
+          ->add('title', TextType::class)
+          ->add('content', TextType::class)
+          ->add('add', SubmitType::class)
+          ->getForm();
+
+        if($request->getMethod() == "POST"){
+            $form->handleRequest($request);
+
+            $name = $request->request->get('name');
+            $title = $request->request->get('title');
+            $content = $request->request->get('content');
+        }
+
         $post = new Post();
-        $post->setAuthor('gab');
-        $post->setTitle('Post');
+        $post->setAuthor($name);
+        $post->setTitle($title);
         $post->setUrlAlias('test');
-        $post->setContent('Hello World!');
+        $post->setContent($content);
         $pub = "11-11-12";
         $post->setPublished(new \DateTime($pub));
 
@@ -91,7 +118,11 @@ class BlogController extends Controller
         $em->persist($post);
         $em->flush();
 
-        return new Response('New Post created! : '.$post->getTitle());
+        return $this->postAction($post->getId());
+
+
+
+        //return new Response('New Post created! : '. $post->getId());
 
     }
 

@@ -48,11 +48,7 @@
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Popular posts</a>
                                         <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                            <a class="dropdown-item" href="{{ path('Post', {'idPost': $idPost,
-                                                                                        'title'=>$title,
-                                                                                        'content'=>$content,
-                                                                                        'published'=>$published                                    
-                                            }) }}">Post {{ idPost }}</a>
+                                            <a class="dropdown-item" href="{{ path('Post', {'idPost': idPost}) }}">Post {{ idPost }}</a>
                                         </div>
                                     </li>
                                     <li class="nav-item">
