@@ -38,7 +38,8 @@ class BlogController extends Controller
 
 
         return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+            'posts' => $posts
         ]);
     }
     
@@ -49,16 +50,17 @@ class BlogController extends Controller
     public function postAction($idPost)
     {
 
-        
+        $repository = $this->getDoctrine()
+        ->getRepository('AppBundle:Post');
 
-        $post = $this->getDoctrine()
-            ->getRepository('AppBundle:Post')
-            ->find($idPost);
+        $post = $repository->find($idPost);
+        
+        $posts = $repository->findAll();
 
         if(!$post)
         {
             throw $this->createNotFoundException(
-                $r
+                "nooooo"
             );
         }
 
@@ -68,11 +70,8 @@ class BlogController extends Controller
         $published = $post->getPublished();
 
 
-        return $this->render('default/post.html.twig', ['idPost'=>$idPost,
-                                                'author'=>$author,
-                                                'title'=>$title,
-                                                'content'=>$content,
-                                                'published'=>$published                                                    
+        return $this->render('default/post.html.twig', ['post' => $post,
+                                                        'posts' => $posts                                                   
         ]);
     }
 
@@ -115,6 +114,7 @@ class BlogController extends Controller
         $post->setPublished(new \DateTime($pub));
 
         $em = $this->getDoctrine()->getManager();
+        
         $em->persist($post);
         $em->flush();
 
