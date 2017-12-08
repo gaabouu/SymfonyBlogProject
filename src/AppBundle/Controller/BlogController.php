@@ -18,9 +18,9 @@ use AppBundle\Entity\Post;
 class BlogController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/{numb}", name="homepage", defaults={"numb" : 10}, requirements={"numb"="\d+0"})
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, $numb)
     {
 
 
