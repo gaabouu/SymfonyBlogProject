@@ -70,9 +70,7 @@ class BlogController extends Controller
         $published = $post->getPublished();
 
 
-        return $this->render('default/post.html.twig', ['post' => $post,
-                                                        'posts' => $posts                                                   
-        ]);
+        return $this->render('default/post.html.twig', ['post' => $post]);
     }
 
 

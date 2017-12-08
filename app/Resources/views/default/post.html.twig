@@ -1,197 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}zeMudaFukinPost{% endblock %}
+{% block title %}GroPost - Un post de Groland{% endblock %}
 
 {% block body %}
 
-    {% block header %}
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <h2 class="section-heading"> {{ post.title }} </h2>
+                    <p> {{ post.content }} </p>
+                    </br>
+                    <p> Posté par {{ post.author }} le {{ post.published|date("d/m/Y") }} </p>
 
-        <!-- Preloader Start -->
-        <div id="preloader">
-            <div class="yummy-load"></div>
-        </div>
-
-
-        <!-- ****** Header Area Start ****** -->
-        <header class="header_area">
-            <div class="container">
-                <div class="row">
-                    <!-- Logo Area Start -->
-                    <div class="col-12">
-                        <div class="logo_area text-center">
-                            <a href="{{ path('homepage') }}" class="yummy-logo">zeMudaFukinBlog</a>
-                        </div>
-                    </div>
-                </div>
-
-                 <div class="col-12">
-                    <div class="search_blog_area" align="center">
-                        <form>
-                            Search a post! : 
-                            <input type="text" name="search">
-                            <input type="submit" value="Let's see it!">
-                        </form>
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="col-12">
-                        <nav class="navbar navbar-expand-lg">
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#yummyfood-nav" aria-controls="yummyfood-nav" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars" aria-hidden="true"></i> Menu</button>
-                            <!-- Menu Area Start -->
-                            <div class="collapse navbar-collapse justify-content-center" id="yummyfood-nav">
-                                <ul class="navbar-nav" id="yummy-nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{path('homepage') }}">Home <span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Popular posts</a>
-                                        
-                                        <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                        {% for i in 1..5 %}
-                                            <a class="dropdown-item" href="{{ path('Post', {'idPost': i}) }}">Post {{ i }}</a>
-                                        {% endfor %}
-                                        </div>
-                                        
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ path('createPage') }}">Create a post</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <!-- ****** Header Area End ****** -->
-
-        <!-- ****** Breadcumb Area Start ****** -->
-        <div class="breadcumb-area" style="background-image: url({{ asset('img/bg-img/breadcumb.jpg') }};">
-            <div class="container h-100">
-                <div class="row h-100 align-items-center">
-                    <div class="col-12">
-                        <div class="bradcumb-title text-center">
-                            <h1>{{ post.title }}</h1>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-        <div class="breadcumb-nav">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ path('homepage') }}"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Post {{ post.id }}</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ****** Breadcumb Area End ****** -->
+    </article>
 
-    {% endblock %}
-
-        
-        <!-- ****** Single Blog Area Start ****** -->
-        <section class="single_blog_area section_padding_80">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-12 col-lg-8">
-                        <div class="row no-gutters">
-
-                            
-
-                            <!-- Single Post -->
-                            <div class="col-10 col-sm-11">
-                                <div class="single-post">
-                                    <!-- Post Thumb -->
-                                    <div class="post-thumb">
-                                        <img src="{{asset('img/blog-img/10.jpg') }}" alt="">
-                                    </div>
-                                    <!-- Post Content -->
-                                    <div class="post-content">
-                                        <div class="post-meta d-flex">
-                                            <div class="post-author-date-area d-flex">
-                                                <!-- Post Author -->
-                                                <div class="post-author">
-                                                    <a href="#">By {{post.author}}</a>
-                                                </div>
-                                                <!-- Post Date -->
-                                                <div class="post-date">
-                                                    <a href="#">{{post.published|date("d/m/Y")}}</a>
-                                                </div>
-                                            </div>
-                                           
-                                        </div>
-                                        <a href="#">
-                                            <h2 class="post-headline">{{post.title}}!</h2>
-                                        </a>
-                                        {{post.content}}
-
-                                        <img class="br-30 mb-15" src="{{ asset('img/blog-img/14.jpg') }}" alt="">
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ****** Blog Sidebar ****** -->
-                    <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-                        <div class="blog-sidebar mt-5 mt-lg-0">
-                            <!-- Single Widget Area -->
-                            <div class="single-widget-area about-me-widget text-center">
-                                <div class="widget-title">
-                                    <h6>About me</h6>
-                                </div>
-                                <div class="about-me-widget-thumb">
-                                    <img src="{{ asset('img/about-img/1.jpg') }}" alt="">
-                                </div>
-                                <h4 class="font-shadow-into-light">{{post.author}}</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt</p>
-                                
-                            </div>
-
-                        
-
-                            <!-- Single Widget Area -->
-                            <div class="single-widget-area popular-post-widget">
-                                <div class="widget-title text-center">
-                                    <h6>Popular Posts</h6>
-                                </div>
- {% for i in 1..5 %}
-                                <!-- Single Popular Post -->
-                                <div class="single-populer-post d-flex">
-                                    <img src="{{asset('img/sidebar-img/1.jpg') }}" alt="">
-                                    <div class="post-content">
-                                        <a href="#">
-                                            <h6>{{posts[i].title}}</h6>
-                                        </a>
-                                        <p>{{posts[i].published|date("d/m/Y")}}</p>
-                                    </div>
-                                </div>
-                           
-                        
-{% endfor %}
-                            </div>
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- ****** Single Blog Area End ****** -->
-
-
-    
-
+    <hr>
 
 {% endblock %} 

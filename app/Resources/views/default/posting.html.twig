@@ -1,104 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}zeMudaFukinCreation{% endblock %}
+{% block title %}GroPost - Création d'un post pour Groland{% endblock %}
 
 {% block body %}
 
     {% block header %}
 
-        <!-- Preloader Start -->
-        <div id="preloader">
-            <div class="yummy-load"></div>
-        </div>
-
-
-        <!-- ****** Header Area Start ****** -->
-        <header class="header_area">
-            <div class="container">
-                <div class="row">
-                    <!-- Logo Area Start -->
-                    <div class="col-12">
-                        <div class="logo_area text-center">
-                            <a href="{{path('homepage') }}" class="yummy-logo">zeMudaFukinBlog</a>
-                        </div>
-                    </div>
-                </div>
-
-                 <div class="col-12">
-                    <div class="search_blog_area" align="center">
-                        <form>
-                            Search a post! : 
-                            <input type="text" name="search">
-                            <input type="submit" value="Let's see it!">
-                        </form>
-                    </div>
-                </div>
-
-                    <div class="row">
-                    <div class="col-12">
-                        <nav class="navbar navbar-expand-lg">
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#yummyfood-nav" aria-controls="yummyfood-nav" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars" aria-hidden="true"></i> Menu</button>
-                            <!-- Menu Area Start -->
-                            <div class="collapse navbar-collapse justify-content-center" id="yummyfood-nav">
-                                <ul class="navbar-nav" id="yummy-nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ path('homepage') }}">Home <span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Popular posts</a>
-                                        <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                            {% for i in 1..5 %}
-                                            <a class="dropdown-item" href="{{ path('Post', {'idPost': i}) }}">Post {{ i }}</a>
-                                            {% endfor %}
-                                        </div>
-                                    </li>
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="{{ path('createPage') }}">Create a post</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-
-        <!-- ****** Breadcumb Area Start ****** -->
-        <div class="breadcumb-area" style="background-image: url({{ asset('img/bg-img/breadcumb.jpg') }};">
-            <div class="container h-100">
-                <div class="row h-100 align-items-center">
-                    <div class="col-12">
-                        <div class="bradcumb-title text-center">
-                            <h1>Create your Post!</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="breadcumb-nav">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ path('homepage') }}"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Creation</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ****** Breadcumb Area End ****** -->
-
+       
     {% endblock %}
 
 
         <!-- ****** POST CREATION FORM STARTS ***** -->
        
-        <section class="create-form">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-12 col-lg-8">
-                        <div class="row no-gutters">
+        
 
 
                             <h2 class="post-headline">Here you can create you own post on this Blog. Fantastic isn't it?</h2>
@@ -112,11 +26,7 @@
                                 <input type="submit" name="add" value="Post it!">
                             </form>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+                        
 
         <!-- ****** POST CREATION FORM ENDS ***** -->
 
