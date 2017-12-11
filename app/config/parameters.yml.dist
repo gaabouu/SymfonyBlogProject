@@ -18,3 +18,8 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
+
+    #for the user db
+    database_name2: user
+    database_path2: '%kernel.project_dir%/app/user.db'
+
