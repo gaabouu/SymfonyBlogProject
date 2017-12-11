@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 
 
 use AppBundle\Entity\Post;
-
+//TODO: Add routes for deleting and updating posts 
 
 class BlogController extends Controller
 {
@@ -27,6 +27,8 @@ class BlogController extends Controller
         $repository = $this->getDoctrine()
             ->getRepository('AppBundle:Post');
 
+        //FIXME: create request to get and give to the template only the 10 necesaries posts
+
         $posts = $repository->findAll();
 
         
@@ -36,11 +38,22 @@ class BlogController extends Controller
             );
         }
 
+        $user = $this->getUser();
+
+        if(!$user){
+            return $this->render('default/index.html.twig', [
+                'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+                'posts' => $posts
+            ]);
+        }
+
 
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-            'posts' => $posts
+            'posts' => $posts,
+            'user' => $user
         ]);
+        
     }
     
 
@@ -69,8 +82,16 @@ class BlogController extends Controller
         $content = $post->getContent();
         $published = $post->getPublished();
 
+        $user = $this->getUser();
+        
+        if(!$user){
+            return $this->render('default/post.html.twig', ['post' => $post]);
+        }
 
-        return $this->render('default/post.html.twig', ['post' => $post]);
+
+        return $this->render('default/post.html.twig', ['post' => $post,
+                        'user' => $user
+        ]);
     }
 
 
@@ -79,7 +100,31 @@ class BlogController extends Controller
      */
     public function createPageAction()
     {
-        return $this->render('default/posting.html.twig');
+        $user = $this->getUser();
+        
+        if(!$user){
+            return $this->render('default/posting.html.twig');
+        }
+
+        return $this->render('default/posting.html.twig', ['user' => $user]);
+    }
+
+    /**
+     * @Route("/myposts", name="myposts")
+     */
+    public function mypostsAction(){
+        $user = $this->getUser();
+
+        //FIXME: create request to get all current user's posts and give it to the template
+
+        $repository = $this->getDoctrine()
+        ->getRepository('AppBundle:Post');
+
+        $posts = $repository->findAll();
+        
+        return $this->render('default/myposts.html.twig', ['user' => $user,
+                    'posts' => $posts        
+        ]);
     }
 
     /**
@@ -88,8 +133,9 @@ class BlogController extends Controller
     public function createAction(Request $request)
     {
 
+        $user = $this->getUser();
+
         $form = $this->createFormBuilder()
-          ->add('name', TextType::class)
           ->add('title', TextType::class)
           ->add('content', TextType::class)
           ->add('add', SubmitType::class)
@@ -98,18 +144,17 @@ class BlogController extends Controller
         if($request->getMethod() == "POST"){
             $form->handleRequest($request);
 
-            $name = $request->request->get('name');
             $title = $request->request->get('title');
             $content = $request->request->get('content');
         }
 
         $post = new Post();
-        $post->setAuthor($name);
+        $post->setAuthor($user);
         $post->setTitle($title);
         $post->setUrlAlias('test');
         $post->setContent($content);
         $pub = "11-11-12";
-        $post->setPublished(new \DateTime($pub));
+        $post->setPublished(new \DateTime());
 
         $em = $this->getDoctrine()->getManager();
         
@@ -123,6 +168,7 @@ class BlogController extends Controller
         //return new Response('New Post created! : '. $post->getId());
 
     }
+
 
 }
 

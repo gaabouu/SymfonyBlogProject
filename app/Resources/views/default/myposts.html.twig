@@ -1,16 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}GroBlog - Le blog de Groland{% endblock %}
+{% block title %}GroPost - Création d'un post pour Groland{% endblock %}
 
 {% block body %}
 
-    <!-- Main Content -->
+
+      <!-- Main Content  TODO: add delete and update buttons-->
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-
-{% for i in (app.request.get('numb')-10)..app.request.get('numb') %}
-{% if posts[i] is defined %}
+{% for i in 0..posts|length - 1 %}
           <div class="post-preview">
             <a href="{{ path('Post', {'idPost' : posts[i].id})}}">
               <h2 class="post-title">
@@ -24,23 +23,8 @@
               <a href="#">{{ posts[i].author }}</a>
               le {{ posts[i].published|date("d/m/Y") }}</p>
           </div>
-          <hr>
-          
-{% endif %}
+          <hr>   
 {% endfor %}
 
-{% if posts[app.request.get('numb') + 1] is defined %}
-
-                <!-- Pager -->
-                <div class="clearfix">
-                    <a class="btn btn-primary float-right" href="{{ path('homepage', {'numb' : app.request.get('numb')+10}) }} ">Plus de posts &rarr;</a>
-                </div>
-{% endif %}
-            </div>
-        </div>
-    </div>
-
-    <hr>
-          
 
 {% endblock %}

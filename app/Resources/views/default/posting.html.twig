@@ -4,19 +4,13 @@
 
 {% block body %}
 
-    {% block header %}
-
-       
-    {% endblock %}
-
 
         <!-- ****** POST CREATION FORM STARTS ***** -->
        
                             <h2 class="post-headline">Here you can create you own post on this Blog. Fantastic isn't it?</h2>
 
                             <form action="{{ path('create') }}" method="POST">
-                                Name: <br>
-                                <input type="text" name="name" placeholder="Anonymous"><br>
+                                Name: {{user}}<br>
                                 Title:<br>
                                 <input type="text" name="title" placeholder="A Fairly Okayish Post I guess" size="50"><br>
                                 <input type="text" name="content"><br>
@@ -25,8 +19,5 @@
 
         <!-- ****** POST CREATION FORM ENDS ***** -->
 
-
-{% block footer1 %}
-{% endblock %}
 
 {% endblock %}

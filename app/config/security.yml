@@ -4,6 +4,7 @@ security:
 
     encoders: 
         FOS\UserBundle\Model\UserInteface: bcrypt
+        AppBundle\Entity\User: bcrypt
 
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER
