@@ -29,10 +29,13 @@
 {% endif %}
 {% endfor %}
 
+{% if posts[app.request.get('numb') + 1] is defined %}
+
                 <!-- Pager -->
                 <div class="clearfix">
                     <a class="btn btn-primary float-right" href="{{ path('homepage', {'numb' : app.request.get('numb')+10}) }} ">Plus de posts &rarr;</a>
                 </div>
+{% endif %}
             </div>
         </div>
     </div>
