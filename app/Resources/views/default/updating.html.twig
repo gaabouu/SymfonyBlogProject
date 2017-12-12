@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GroPost - Modification d'un post pour Groland{% endblock %}
+
+{% block body %}
+
+
+        <!-- ****** POST CREATION FORM STARTS ***** -->
+       
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <form action="{{ path('update', {'idPost' : post.id } ) }}" method="POST" align="center">
+                Name: {{post.author}}<br>
+                Title:<br>
+                <input type="text" name="title" placeholder="A Fairly Okayish Post I guess" size="60%" value="{{post.title}}"><br><br>
+                <textarea type="text" name="content" cols="75%" rows="100%">{{post.content}}</textarea><br>
+                <input type="submit" name="add" value="Post it!">
+            </form>
+        </div>
+    </div>
+</div> 
+        <!-- ****** POST CREATION FORM ENDS ***** -->
+
+
+
+{% endblock %}

@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 
 
 use AppBundle\Entity\Post;
-//TODO: Add routes for deleting and updating posts 
 
 class BlogController extends Controller
 {
@@ -32,11 +31,6 @@ class BlogController extends Controller
         $posts = $repository->findAll();
 
         
-        if(!$posts){
-            throw $this->createNotFoundException(
-                'No post At all'
-            );
-        }
 
         $user = $this->getUser();
 
@@ -68,7 +62,6 @@ class BlogController extends Controller
 
         $post = $repository->find($idPost);
         
-        $posts = $repository->findAll();
 
         if(!$post)
         {
@@ -109,22 +102,103 @@ class BlogController extends Controller
         return $this->render('default/posting.html.twig', ['user' => $user]);
     }
 
-    /**
-     * @Route("/myposts", name="myposts")
+    /** 
+     * @Route("/updatePage/{idPost}", name="updatePage")
      */
-    public function mypostsAction(){
-        $user = $this->getUser();
+    public function updatePageAction($idPost){
+        $repository = $this->getDoctrine()
+            ->getRepository('AppBundle:Post');
 
-        //FIXME: create request to get all current user's posts and give it to the template
+        $post = $repository->findOneById($idPost);
+
+        if(!$post){
+            throw $this->createNotFoundException(
+                "no post with that id" . $idPost
+            );
+        }
+
+        return $this->render('default/updating.html.twig', ['post' => $post]);
+    }
+
+    /**
+     * @Route("/myposts/{numb}", name="myposts", defaults={"numb" : 10}, requirements={"numb"="\d+0"})
+     */
+    public function mypostsAction($numb){
+        $user = $this->getUser();
 
         $repository = $this->getDoctrine()
         ->getRepository('AppBundle:Post');
 
-        $posts = $repository->findAll();
+        //FIXME: create a request to get posts only 10 by 10
+        $posts = $repository->findByAuthor($user);
         
         return $this->render('default/myposts.html.twig', ['user' => $user,
                     'posts' => $posts        
         ]);
+    }
+
+    /**
+     * @Route("/delete/{idPost}", name="delete")
+     */
+    public function deleteAction($idPost){
+        $em = $this->getDoctrine()->getManager();
+        $post = $em->getRepository(Post::class)->find($idPost);
+    
+        if (!$post) {
+            throw $this->createNotFoundException(
+                'No post found for id ' . $idPost
+            );
+        }
+
+        $em->remove($post);
+        $em->flush();
+
+        return $this->redirectToRoute('myposts');
+    }
+
+    /**
+     * @Route("/update/{idPost}", name="update",  requirements={"numb"="\d+0"})
+     */
+    public function updateAction(Request $request, $idPost)
+    {
+
+        $user = $this->getUser();
+
+        $form = $this->createFormBuilder()
+          ->add('title', TextType::class)
+          ->add('content', TextType::class)
+          ->add('add', SubmitType::class)
+          ->getForm();
+
+        if($request->getMethod() == "POST"){
+            $form->handleRequest($request);
+
+            $title = $request->request->get('title');
+            $content = $request->request->get('content');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $post = $em->getRepository(Post::class)->find($idPost);
+    
+        if (!$post) {
+            throw $this->createNotFoundException(
+                'No product found for id '.$productId
+            );
+        }
+
+        $post->setTitle($title);
+        $post->setContent($content);
+        $post->setPublished(new \DateTime());
+
+        
+        $em->flush();
+
+        return $this->postAction($post->getId());
+
+
+
+        //return new Response('New Post created! : '. $post->getId());
+
     }
 
     /**

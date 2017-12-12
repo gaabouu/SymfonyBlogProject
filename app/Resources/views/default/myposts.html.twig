@@ -1,20 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}GroPost - Création d'un post pour Groland{% endblock %}
+{% block title %}GroPost - Les posts de {{user}}{% endblock %}
 
 {% block body %}
 
 
-      <!-- Main Content  TODO: add delete and update buttons-->
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
+{% if posts|length == 0 %}
+          <h1>Vous n'avez pas encore créé de posts, lancez vous! </h1>
+{% else %}
 {% for i in 0..posts|length - 1 %}
           <div class="post-preview">
             <a href="{{ path('Post', {'idPost' : posts[i].id})}}">
               <h2 class="post-title">
-                {{ posts[i].title }}
+                {{ posts[i].title }} 
               </h2>
+              
               <h3 class="post-subtitle">
                 {{ posts[i].content|slice(0, 100) }}...
               </h3>
@@ -23,8 +26,16 @@
               <a href="#">{{ posts[i].author }}</a>
               le {{ posts[i].published|date("d/m/Y") }}</p>
           </div>
-          <hr>   
+          <a href="{{path('updatePage', {'idPost' : posts[i].id} ) }}" title="Modifier le post">  <img src="{{asset('img/editLogo24x24.png')}}" alt="">  </a> 
+          <a href="{{path('delete', {'idPost' : posts[i].id} ) }}" title="Supprimer le post"> <img src="{{asset('img/delete24x24.png')}}" alt=""/>   </a>
+
+          <hr>
 {% endfor %}
+{% endif %} 
+      </div>
+    </div>
+  </div>  
+
 
 
 {% endblock %}

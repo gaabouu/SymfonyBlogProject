@@ -9,6 +9,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto">
+                    {% if user is defined %}
+                    {% if post.author == user %}
+                        <a href="{{path('updatePage', {'idPost' : post.id} ) }}" title="Modifier le post">  <img src="{{asset('img/editLogo24x24.png')}}" alt="">  </a> 
+                        <a href="{{path('delete', {'idPost' : post.id} ) }}" title="Supprimer le post"> <img src="{{asset('img/delete24x24.png')}}" alt=""/>   </a>
+                    {% endif %}
+                    {% endif %}
                     <h2 class="section-heading"> {{ post.title }} </h2>
                     <p> {{ post.content }} </p>
                     </br>

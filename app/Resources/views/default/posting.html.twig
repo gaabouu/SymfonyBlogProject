@@ -5,19 +5,24 @@
 {% block body %}
 
 
-        <!-- ****** POST CREATION FORM STARTS ***** -->
-       
-                            <h2 class="post-headline">Here you can create you own post on this Blog. Fantastic isn't it?</h2>
+<!-- ****** POST CREATION FORM STARTS ***** -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <h2 class="post-headline">Here you can create you own post on this Blog. Fantastic isn't it?</h2>
 
-                            <form action="{{ path('create') }}" method="POST">
-                                Name: {{user}}<br>
-                                Title:<br>
-                                <input type="text" name="title" placeholder="A Fairly Okayish Post I guess" size="50"><br>
-                                <input type="text" name="content"><br>
-                                <input type="submit" name="add" value="Post it!">
-                            </form>
+            <form action="{{ path('create') }}" method="POST" align="center">
+                Name: {{user}}<br>
+                Title:<br>
+                <input type="text" name="title" placeholder="A Fairly Okayish Post I guess" size="60%"><br><br>
+                <textarea type="text" name="content" cols="75%" rows="100%"></textarea><br>
+                <input type="submit" name="add" value="Post it!">
+            </form>
+        </div>
+    </div>
+</div>
 
-        <!-- ****** POST CREATION FORM ENDS ***** -->
+<!-- ****** POST CREATION FORM ENDS ***** -->
 
 
 {% endblock %}

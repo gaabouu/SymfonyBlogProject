@@ -8,7 +8,9 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-
+{% if posts|length == 0 %}
+          <h1>Aucun post créé pour l'instant!</h1>
+{% else %}
 {% for i in (app.request.get('numb')-10)..app.request.get('numb') %}
 {% if posts[i] is defined %}
           <div class="post-preview">
@@ -24,10 +26,17 @@
               <a href="#">{{ posts[i].author }}</a>
               le {{ posts[i].published|date("d/m/Y") }}</p>
           </div>
+          {% if user is defined %}
+          {% if posts[i].author == user %}
+            <a href="{{path('updatePage', {'idPost' : posts[i].id} ) }}" title="Modifier le post">  <img src="{{asset('img/editLogo24x24.png')}}" alt="">  </a> 
+            <a href="{{path('delete', {'idPost' : posts[i].id} ) }}" title="Supprimer le post"> <img src="{{asset('img/delete24x24.png')}}" alt=""/>   </a>
+          {% endif %}
+          {% endif %}
           <hr>
-          
 {% endif %}
+          
 {% endfor %}
+
 
 {% if posts[app.request.get('numb') + 1] is defined %}
 
@@ -41,6 +50,9 @@
     </div>
 
     <hr>
+
+{% endif %}
+
           
 
 {% endblock %}
