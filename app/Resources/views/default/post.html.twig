@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}GroPost - Un post de Groland{% endblock %}
+{% block title %}{% trans %}GroPost - A %user%'s post{% endtrans %}{% endblock %}
 
 {% block body %}
 
@@ -18,7 +18,7 @@
                     <h2 class="section-heading"> {{ post.title }} </h2>
                     <p> {{ post.content }} </p>
                     </br>
-                    <p> Posté par {{ post.author }} le {{ post.published|date("d/m/Y") }} </p>
+                    <p> {% trans %}By{% endtrans %} {{ post.author }} {% trans %}the{% endtrans %} {{ post.published|date("d/m/Y") }} </p>
 
                 </div>
             </div>

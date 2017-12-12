@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}GroPost - Les posts de {{user}}{% endblock %}
+{% block title %}{% trans %}GroPost - %user%'s posts{% endtrans %}{% endblock %}
 
 {% block body %}
 
@@ -9,7 +9,7 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
 {% if posts|length == 0 %}
-          <h1>Vous n'avez pas encore créé de posts, lancez vous! </h1>
+          <h1>{% trans %}You did not create posts yet, go ahead!{% endtrans %}</h1>
 {% else %}
 {% for i in 0..posts|length - 1 %}
           <div class="post-preview">
@@ -22,9 +22,9 @@
                 {{ posts[i].content|slice(0, 100) }}...
               </h3>
             </a>
-            <p class="post-meta">Posté par
+            <p class="post-meta">{% trans %}By{% endtrans %}
               <a href="#">{{ posts[i].author }}</a>
-              le {{ posts[i].published|date("d/m/Y") }}</p>
+              {% trans %}the{% endtrans %} {{ posts[i].published|date("d/m/Y") }}</p>
           </div>
           <a href="{{path('updatePage', {'idPost' : posts[i].id} ) }}" title="Modifier le post">  <img src="{{asset('img/editLogo24x24.png')}}" alt="">  </a> 
           <a href="{{path('delete', {'idPost' : posts[i].id} ) }}" title="Supprimer le post"> <img src="{{asset('img/delete24x24.png')}}" alt=""/>   </a>

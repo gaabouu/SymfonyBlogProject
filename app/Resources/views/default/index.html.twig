@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}GroBlog - Le blog de Groland{% endblock %}
+{% block title %}{% trans %}GroBlog - Groland's blog{% endtrans %}{% endblock %}
 
 {% block body %}
 
@@ -9,7 +9,7 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
 {% if posts|length == 0 %}
-          <h1>Aucun post créé pour l'instant!</h1>
+          <h1>{% trans %}No post for now!{% endtrans %}</h1>
 {% else %}
 {% for i in (app.request.get('numb')-10)..app.request.get('numb') %}
 {% if posts[i] is defined %}
@@ -22,9 +22,9 @@
                 {{ posts[i].content|slice(0, 100) }}...
               </h3>
             </a>
-            <p class="post-meta">Posté par
+            <p class="post-meta">{% trans %}By{% endtrans %}
               <a href="#">{{ posts[i].author }}</a>
-              le {{ posts[i].published|date("d/m/Y") }}</p>
+              {% trans %}the{% endtrans %} {{ posts[i].published|date("d/m/Y") }}</p>
           </div>
           {% if user is defined %}
           {% if posts[i].author == user %}
@@ -42,7 +42,7 @@
 
                 <!-- Pager -->
                 <div class="clearfix">
-                    <a class="btn btn-primary float-right" href="{{ path('homepage', {'numb' : app.request.get('numb')+10}) }} ">Plus de posts &rarr;</a>
+                    <a class="btn btn-primary float-right" href="{{ path('homepage', {'numb' : app.request.get('numb')+10}) }} ">{% trans %}See more{% endtrans %} &rarr;</a>
                 </div>
 {% endif %}
             </div>
