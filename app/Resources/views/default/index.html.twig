@@ -11,7 +11,7 @@
 {% if posts|length == 0 %}
           <h1>{% trans %}No post for now!{% endtrans %}</h1>
 {% else %}
-{% for i in (app.request.get('numb')-10)..app.request.get('numb') %}
+{% for i in (app.request.get('numb')-10)..app.request.get('numb') - 1 %}
 {% if posts[i] is defined %}
           <div class="post-preview">
             <a href="{{ path('Post', {'idPost' : posts[i].id})}}">
@@ -38,7 +38,7 @@
 {% endfor %}
 
 
-{% if posts[app.request.get('numb') + 1] is defined %}
+{% if posts[app.request.get('numb')] is defined %}
 
                 <!-- Pager -->
                 <div class="clearfix">

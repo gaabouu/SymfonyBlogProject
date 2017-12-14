@@ -184,7 +184,6 @@ class BlogController extends Controller
           ->add('add', SubmitType::class)
           ->getForm();
 
-        $title = 0;
 
         if($request->getMethod() == "POST"){
             $form->handleRequest($request);
@@ -193,7 +192,7 @@ class BlogController extends Controller
             
             $content = $request->request->get('content');
         }
-        if($title == 0){
+        else{
             return $this->render('default/invaliduser.html.twig', ['user' => $user]);
         }
 
@@ -240,7 +239,7 @@ class BlogController extends Controller
           ->add('add', SubmitType::class)
           ->getForm();
 
-        $title = 0;
+        
 
         if($request->getMethod() == "POST"){
             $form->handleRequest($request);
@@ -248,8 +247,7 @@ class BlogController extends Controller
             $title = $request->request->get('title');
             $content = $request->request->get('content');
         }
-
-        if($title == 0){
+        else{
             return $this->render('default/invaliduser.html.twig', ['user' => $user]);
         }
 
