@@ -118,9 +118,7 @@ class BlogController extends Controller
         }
 
         if(!$post){
-            throw $this->createNotFoundException(
-                "no post with that id" . $idPost
-            );
+            return $this->render('default/invaliduser.html.twig', ['user' => $user]);
         }
 
         return $this->render('default/updating.html.twig', ['post' => $post, 'user' => $user]);
