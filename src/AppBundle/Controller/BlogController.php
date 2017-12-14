@@ -150,16 +150,15 @@ class BlogController extends Controller
         $em = $this->getDoctrine()->getManager();
         $post = $em->getRepository(Post::class)->find($idPost);
     
-        if (!$post) {
-            throw $this->createNotFoundException(
-                'No post found for id ' . $idPost
-            );
-        }
+        
 
         $user = $this->getUser();
 
         if(!$user){
             return $this->render('default/invaliduser.html.twig');
+        }
+        else if (!$post) {
+            return $this->render('default/invaliduser.html.twig', ['user' => $user]);
         }
         else if($user != $post->getAuthor()){
             return $this->render('default/invaliduser.html.twig', ['user' => $user]);
@@ -231,17 +230,27 @@ class BlogController extends Controller
 
         $user = $this->getUser();
 
+        if(!$user){
+            return $this->render('default/invaliduser.html.twig');
+        }
+
         $form = $this->createFormBuilder()
           ->add('title', TextType::class)
           ->add('content', TextType::class)
           ->add('add', SubmitType::class)
           ->getForm();
 
+        $title = 0;
+
         if($request->getMethod() == "POST"){
             $form->handleRequest($request);
 
             $title = $request->request->get('title');
             $content = $request->request->get('content');
+        }
+
+        if($title == 0){
+            return $this->render('default/invaliduser.html.twig', ['user' => $user]);
         }
 
         $post = new Post();
