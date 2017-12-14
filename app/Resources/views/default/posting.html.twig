@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}GroPost - Post creation for Groland{% endblock %}
+{% block title %}{% trans %}GroPost - Post creation for Groland{% endtrans %}{% endblock %}
 
 {% block body %}
 
@@ -9,15 +9,19 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <h2 class="post-headline">Here you can create you own post on this Blog. Fantastic isn't it?</h2>
+            {% if user is defined %}
+            <h2 class="post-headline">{% trans %}Hello %user%, here you can create your own post on this blog{% endtrans %}</h2>
 
             <form action="{{ path('create') }}" method="POST" align="center">
-                Name: {{user}}<br>
                 Title:<br>
                 <input type="text" name="title" placeholder="A Fairly Okayish Post I guess" size="60%"><br><br>
                 <textarea type="text" name="content" cols="75%" rows="100%"></textarea><br>
                 <input type="submit" name="add" value="Post it!">
             </form>
+            {% else %}
+                <h1>{% trans %}You need to connect to your account in order to create a post.{% endtrans %}</h1>
+            
+            {% endif %}
         </div>
     </div>
 </div>

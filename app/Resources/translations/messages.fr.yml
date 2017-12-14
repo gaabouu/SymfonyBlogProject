@@ -18,8 +18,10 @@ No post for now!: Aucun post pour l'instant!
 See more: Plus de posts
 
 # Creation page
-Here you can create you own post on this Blog. Fantastic isn't it?: Ici, vous pouvez créer votre propre post sur ce blog, fantastique non?
 GroPost - Post creation for Groland: GroPost - Création d'un post pour Groland
+Hello %user%, here you can create your own post on this blog: Bonjour %user%, ici vous pouvez créer votre propre post sur ce blog!
+You need to connect to your account in order to create a post.: Connectez vous pour pouvoir créer un post.
+
 
 # Myposts
 You did not create posts yet, go ahead!: Vous n'avez pas encore créé de post, lancez vous!
@@ -27,6 +29,11 @@ GroPost - %user%'s posts: GroPost - Les posts de %user%
 
 # update page
 GroPost - Post modification: GroPost - Modification d'un post
+You are not authorized to update this post: Vous n'êtes pas autorisé à modifier ce post
 
 # post
 GroPost - A %user%'s post: GroPost - Un post de %user%
+
+# invaliduser
+Connect to YOUR account to update/delete YOUR posts!: Connectez vous à VOTRE compte pour modifier/supprimer VOS posts!
+Cheater!: Tricheur!

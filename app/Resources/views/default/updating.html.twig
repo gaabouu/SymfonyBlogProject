@@ -1,26 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}GroPost - Post modification{% endblock %}
+{% block title %}{% trans %}GroPost - Post modification{% endtrans %}{% endblock %}
 
 {% block body %}
 
 
-        <!-- ****** POST CREATION FORM STARTS ***** -->
-       
+                    
+
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <form action="{{ path('update', {'idPost' : post.id } ) }}" method="POST" align="center">
-                Name: {{post.author}}<br>
-                Title:<br>
-                <input type="text" name="title" placeholder="A Fairly Okayish Post I guess" size="60%" value="{{post.title}}"><br><br>
-                <textarea type="text" name="content" cols="75%" rows="100%">{{post.content}}</textarea><br>
-                <input type="submit" name="add" value="Post it!">
-            </form>
+            {% if user is defined %}
+                {% if user == post.author %}
+                    <!-- ****** POST CREATION FORM STARTS ***** -->
+                    <form action="{{ path('update', {'idPost' : post.id } ) }}" method="POST" align="center">
+                        {% trans %}Name:{% endtrans %} {{post.author}}<br>
+                        {% trans %}Title:{% endtrans %}<br>
+                        <input type="text" name="title" placeholder="A Fairly Okayish Post I guess" size="60%" value="{{post.title}}"><br><br>
+                        <textarea type="text" name="content" cols="75%" rows="100%">{{post.content}}</textarea><br>
+                        <input type="submit" name="add" value="Post it!">
+                    </form>
+        
+                    <!-- ****** POST CREATION FORM ENDS ***** -->
+                {% else %}
+                    <h1>{% trans %}You are not authorized to update this post{% endtrans %}</h1>
+                {% endif %}
+            {% endif %}
         </div>
     </div>
 </div> 
-        <!-- ****** POST CREATION FORM ENDS ***** -->
 
 
 

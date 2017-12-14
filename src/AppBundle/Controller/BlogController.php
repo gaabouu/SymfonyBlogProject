@@ -111,13 +111,19 @@ class BlogController extends Controller
 
         $post = $repository->findOneById($idPost);
 
+        $user = $this->getUser();
+
+        if(!$user){
+            return $this->render('default/invaliduser.html.twig');
+        }
+
         if(!$post){
             throw $this->createNotFoundException(
                 "no post with that id" . $idPost
             );
         }
 
-        return $this->render('default/updating.html.twig', ['post' => $post]);
+        return $this->render('default/updating.html.twig', ['post' => $post, 'user' => $user]);
     }
 
     /**
@@ -150,6 +156,15 @@ class BlogController extends Controller
             );
         }
 
+        $user = $this->getUser();
+
+        if(!$user){
+            return $this->render('default/invaliduser.html.twig');
+        }
+        else if($user != $post->getAuthor()){
+            return $this->render('default/invaliduser.html.twig', ['user' => $user]);
+        }
+
         $em->remove($post);
         $em->flush();
 
@@ -170,11 +185,17 @@ class BlogController extends Controller
           ->add('add', SubmitType::class)
           ->getForm();
 
+        $title = 0;
+
         if($request->getMethod() == "POST"){
             $form->handleRequest($request);
 
             $title = $request->request->get('title');
+            
             $content = $request->request->get('content');
+        }
+        if($title == 0){
+            return $this->render('default/invaliduser.html.twig', ['user' => $user]);
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -185,6 +206,7 @@ class BlogController extends Controller
                 'No product found for id '.$productId
             );
         }
+
 
         $post->setTitle($title);
         $post->setContent($content);

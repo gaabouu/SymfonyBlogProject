@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Cheater!{% endtrans %}{% endblock %}
+
+{% block header %}
+            <!-- Page Header -->
+            <header class="masthead" style="background-image: url({{ asset('img/groland-president-uwutmate.jpg') }})">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                    <h1>GroBlog</h1>
+                    <span class="subheading">{% trans %}World's best country's blog{% endtrans %}</span>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </header>
+        {% endblock %}
+
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <h1>{% trans %}Connect to YOUR account to update/delete YOUR posts!{% endtrans %}</h1>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
