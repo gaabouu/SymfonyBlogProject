@@ -27,6 +27,7 @@ class BlogController extends Controller
             ->getRepository('AppBundle:Post');
 
         //FIXME: create request to get and give to the template only the 10 necesaries posts
+        //FIXME: Make this request sort by date
 
         $posts = $repository->findAll();
 
@@ -134,6 +135,7 @@ class BlogController extends Controller
         ->getRepository('AppBundle:Post');
 
         //FIXME: create a request to get posts only 10 by 10
+        //FIXME: sort by date
         $posts = $repository->findByAuthor($user);
         
         return $this->render('default/myposts.html.twig', ['user' => $user,
