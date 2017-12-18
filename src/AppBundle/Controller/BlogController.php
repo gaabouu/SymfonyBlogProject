@@ -9,6 +9,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\ParameterBag;
+use Doctrine\ORM\Query\ResultSetMapping;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
+
+
 
 
 
@@ -23,15 +27,15 @@ class BlogController extends Controller
     {
 
 
-        $repository = $this->getDoctrine()
-            ->getRepository('AppBundle:Post');
 
         //FIXME: create request to get and give to the template only the 10 necesaries posts
-        //FIXME: Make this request sort by date
-
-        $posts = $repository->findAll();
-
+        $em = $this->getDoctrine()->getManager();
         
+        $rsm = new ResultSetMappingBuilder($em);
+        $rsm->addRootEntityFromClassMetadata('AppBundle\Entity\Post', 'p');
+
+        $query = $em->createNativeQuery('SELECT * from post ORDER BY published DESC', $rsm);
+        $posts = $query->getResult();
 
         $user = $this->getUser();
 
@@ -135,8 +139,15 @@ class BlogController extends Controller
         ->getRepository('AppBundle:Post');
 
         //FIXME: create a request to get posts only 10 by 10
-        //FIXME: sort by date
-        $posts = $repository->findByAuthor($user);
+        $em = $this->getDoctrine()->getManager();
+        
+        $rsm = new ResultSetMappingBuilder($em);
+        $rsm->addRootEntityFromClassMetadata('AppBundle\Entity\Post', 'p');
+
+        $query = $em->createNativeQuery('SELECT * from post WHERE author = ? ORDER BY published DESC', $rsm);
+        $query->setParameter(1, $user);
+
+        $posts = $query->getResult();
         
         return $this->render('default/myposts.html.twig', ['user' => $user,
                     'posts' => $posts        
