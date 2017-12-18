@@ -22,5 +22,4 @@ parameters:
     #for the user db
     database_name2: user
     database_path2: '%kernel.project_dir%/app/user.db'
-    database_driver2: pdo_mysql
 
