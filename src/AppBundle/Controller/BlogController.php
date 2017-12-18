@@ -62,9 +62,7 @@ class BlogController extends Controller
         
         $user = $this->getUser();
         
-        if(!$user){
-            return $this->render('default/post.html.twig', ['post' => $post]);
-        }
+        
 
         if(!$post)
         {
@@ -72,6 +70,10 @@ class BlogController extends Controller
                 return $this->render('default/invaliduser.html.twig');
             }
             return $this->render('default/invaliduser.html.twig', ['user' => $user]);
+        }
+
+        if(!$user){
+            return $this->render('default/post.html.twig', ['post' => $post]);
         }
 
         $author = $post->getAuthor(); 
