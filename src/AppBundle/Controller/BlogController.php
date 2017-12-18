@@ -14,6 +14,8 @@ use Doctrine\ORM\Query\ResultSetMappingBuilder;
 
 use AppBundle\Entity\Post;
 
+//TODO: Don't forget to push to heroku
+
 class BlogController extends Controller
 {
     /**
@@ -58,23 +60,24 @@ class BlogController extends Controller
         ->getRepository('AppBundle:Post');
         $post = $repository->find($idPost);
         
+        $user = $this->getUser();
+        
+        if(!$user){
+            return $this->render('default/post.html.twig', ['post' => $post]);
+        }
+
         if(!$post)
         {
-            throw $this->createNotFoundException(
-                "nooooo"
-            );
+            if(!$user){
+                return $this->render('default/invaliduser.html.twig');
+            }
+            return $this->render('default/invaliduser.html.twig', ['user' => $user]);
         }
 
         $author = $post->getAuthor(); 
         $title = $post->getTitle();
         $content = $post->getContent();
         $published = $post->getPublished();
-
-        $user = $this->getUser();
-        
-        if(!$user){
-            return $this->render('default/post.html.twig', ['post' => $post]);
-        }
 
         return $this->render('default/post.html.twig', ['post' => $post,
                         'user' => $user
