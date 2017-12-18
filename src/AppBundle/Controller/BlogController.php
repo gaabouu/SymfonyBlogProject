@@ -12,10 +12,6 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 
-
-
-
-
 use AppBundle\Entity\Post;
 
 class BlogController extends Controller
@@ -25,10 +21,7 @@ class BlogController extends Controller
      */
     public function indexAction(Request $request, $numb)
     {
-
-
-
-        //FIXME: create request to get and give to the template only the 10 necesaries posts
+        //FIXME: change request to get and give to the template only the 10 necesaries posts
         $em = $this->getDoctrine()->getManager();
         
         $rsm = new ResultSetMappingBuilder($em);
@@ -45,7 +38,6 @@ class BlogController extends Controller
                 'posts' => $posts
             ]);
         }
-
 
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
@@ -64,10 +56,8 @@ class BlogController extends Controller
 
         $repository = $this->getDoctrine()
         ->getRepository('AppBundle:Post');
-
         $post = $repository->find($idPost);
         
-
         if(!$post)
         {
             throw $this->createNotFoundException(
@@ -85,7 +75,6 @@ class BlogController extends Controller
         if(!$user){
             return $this->render('default/post.html.twig', ['post' => $post]);
         }
-
 
         return $this->render('default/post.html.twig', ['post' => $post,
                         'user' => $user
@@ -121,7 +110,6 @@ class BlogController extends Controller
         if(!$user){
             return $this->render('default/invaliduser.html.twig');
         }
-
         if(!$post){
             return $this->render('default/invaliduser.html.twig', ['user' => $user]);
         }
@@ -161,8 +149,6 @@ class BlogController extends Controller
         $em = $this->getDoctrine()->getManager();
         $post = $em->getRepository(Post::class)->find($idPost);
     
-        
-
         $user = $this->getUser();
 
         if(!$user){
@@ -195,12 +181,9 @@ class BlogController extends Controller
           ->add('add', SubmitType::class)
           ->getForm();
 
-
         if($request->getMethod() == "POST"){
             $form->handleRequest($request);
-
             $title = $request->request->get('title');
-            
             $content = $request->request->get('content');
         }
         else{
@@ -216,20 +199,13 @@ class BlogController extends Controller
             );
         }
 
-
         $post->setTitle($title);
         $post->setContent($content);
         $post->setPublished(new \DateTime());
 
-        
         $em->flush();
 
         return $this->postAction($post->getId());
-
-
-
-        //return new Response('New Post created! : '. $post->getId());
-
     }
 
     /**
@@ -265,9 +241,8 @@ class BlogController extends Controller
         $post = new Post();
         $post->setAuthor($user);
         $post->setTitle($title);
-        $post->setUrlAlias('test');
+        $post->setUrlAlias("/post/" + $post->getId());
         $post->setContent($content);
-        $pub = "11-11-12";
         $post->setPublished(new \DateTime());
 
         $em = $this->getDoctrine()->getManager();
@@ -276,10 +251,6 @@ class BlogController extends Controller
         $em->flush();
 
         return $this->postAction($post->getId());
-
-
-
-        //return new Response('New Post created! : '. $post->getId());
 
     }
 
