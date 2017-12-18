@@ -3,7 +3,6 @@ zeBlog
 
 Participants: Stadler Nicolas & Larbalete Gabriel
 
-URL: http://gro-blog.herokuapp.com/
 
 Connexion au site: username: guillaume
                     password: 1234
@@ -14,4 +13,6 @@ Connexion au site: username: guillaume
                     username: nicolas
                     password: nico
 
+
+URL: http://gro-blog.herokuapp.com/
 
